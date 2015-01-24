@@ -3,22 +3,27 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>jQuery MultiSelect Widget Demo</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="stylesheet" type="text/css" href="../jquery.multiselect.css" />
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
+    <style>
+        body { font:12px Helvetica, arial, sans-serif }
+        h1, h2, p { margin:10px 0 }
+    </style>
+
+
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../src/jquery.multiselect.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
 
-    <script type="text/javascript" src="basicApp.js"></script>
     <script type="text/javascript" src="angular-multiselect.js"></script>
 </head>
 <body ng-app="myApp">
 
     <h3>Basic</h3>
     <div ng-controller="myController">
-        <select jquery-ui-multiselect title="Basic example" multiple="multiple" name="example-basic" size="5">
+        <!--<select jquery-ui-multiselect multiple="multiple">
             <option value="1">hello1</option>
             <option value="2">hello 2</option>
             <option value="3">hello 3</option>
@@ -31,7 +36,30 @@
             <option value="10">hello 10</option>
             <option value="11">hello 11</option>
             <option value="12">hello 12</option>
-        </select>
+        </select>-->
+        <button ng-click="test()">clickme</button>
+        <jquery-ui-multiselect ng-model="selectedItems" option-list="dataset"></jquery-ui-multiselect>
     </div>
+    <script type="text/javascript">
+        (function (angular) {
+            'use strict';
+            angular.module('myApp', ['ngMultiselect'])
+            .controller('myController', ['$scope', function ($scope) {
+                $scope.dataset = [
+                    { text: 'hello12', value: 12 },
+                    { text: 'hello23', value: 23 },
+                    { text: 'hello34', value: 34 },
+                    { text: 'hello45', value: 45 },
+                    { text: 'hello56', value: 56 },
+                    { text: 'hello68', value: 68 }
+                ];
+                //
+                $scope.selectedItems = [];
+                $scope.test = function () {
+                    console.log($scope.selectedItems);
+                };
+            }]);
+        })(angular);
+    </script>
 </body>
 </html>
