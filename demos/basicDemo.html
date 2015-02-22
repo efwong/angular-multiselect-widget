@@ -37,8 +37,25 @@
             <option value="11">hello 11</option>
             <option value="12">hello 12</option>
         </select>-->
-        <button ng-click="test()">clickme</button>
-        <select multiselect multiple ng-model="selectedItems" ng-options="item.text for item in dataset track by item.value" id="selectTest"></select>
+        <button ng-click="testSelected()">Check Selected Items</button>
+        <select 
+			multiselect 
+			multiple 
+			ng-model="selectedItems" 
+			ng-options="item.text for item in dataset track by item.value" 
+			id="selectTest"
+			ms-height="200"
+			ms-min-width="400"
+			ms-check-all-text="HelloCheckAll"
+			ms-uncheck-all-text="DontCheckAll"
+			ms-none-selected-text="EMPTY"
+			ms-selected-text="# of # selected ha"
+			ms-selected-list="2"
+			ms-show="options.show"
+			ms-hide="options.hide"
+			ms-auto-open="true"
+			>
+		</select>
     </div>
     <script type="text/javascript">
         (function (angular) {
@@ -53,11 +70,17 @@
                     { text: 'hello56', value: 56 },
                     { text: 'hello68', value: 68 }
                 ];
-                //
+                
+				
                 $scope.selectedItems = [$scope.dataset[0]];
-                $scope.test = function () {
+                $scope.testSelected = function () {
                     console.log($scope.selectedItems);
                 };
+				
+				$scope.options = {
+					show: ['bounce', 200],
+					hide: ['explode', 1000]
+				};
             }]);
         })(angular);
     </script>
