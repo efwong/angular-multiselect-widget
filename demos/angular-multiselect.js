@@ -1,34 +1,44 @@
 (function(angular){
     'use strict';
     angular.module('ngMultiselect', [])
-    .directive('jqueryUiMultiselect', function () {
-		var template =  '<div><select multiple="multiple" ng-model="ngModel" ng-options="item.text for item in optionList track by item.value"></select></div>';
-        return {
-            restrict: 'EA',
-			require: 'ngModel',
-			replace:true,
-			scope:{
-				//ngModel: '=',
-				optionList: '='
-			},
-            link: function ($scope, $element, $attributes, ngModel) {
+    .directive('multiselect', ['$timeout', function ($timeout) {
+		var linker = function ($scope, $element, $attributes, ngModel) {
 				
 				ngModel.$render = function(){
 					console.log('rendering');
-					
 				}
 				
 				$scope.$watch($attributes.ngModel, function(modelValue){
-					ngModel.$setViewValue(modelValue);
-					$element.multiselect('refresh');	
-					alert('hello');
+					//if(!modelValue)
+					//{
+					//	ngModel.$setViewValue({ selected: [] });
+					//	return;
+					//}
+					
+					// wait till next cycle to load refreshed data onto DOM
+					$timeout(function(){
+						$element.multiselect('refresh');
+					}, 0 , false)
+					//ngModel.$render();
 				});
 				
 				
 				
-				$element.multiselect();	
-            },
-			template: template
+				$element.multiselect({
+					click: function(event, ui){
+						$scope.$apply(function () {
+							//ngModel.$viewValue.push({ id: ui.value })
+							//ngModel.$setViewValue({ id: ui.value });
+							ngModel.$render();
+							var test = $attributes;
+						});
+					}
+				});
+            };
+        return {
+            restrict: 'EA',
+			require: '?ngModel',
+            link: linker
         }
-    });
+    }]);
 })(angular);

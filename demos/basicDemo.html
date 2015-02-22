@@ -38,7 +38,7 @@
             <option value="12">hello 12</option>
         </select>-->
         <button ng-click="test()">clickme</button>
-        <jquery-ui-multiselect ng-model="selectedItems" option-list="dataset"></jquery-ui-multiselect>
+        <select multiselect multiple ng-model="selectedItems" ng-options="item.text for item in dataset track by item.value" id="selectTest"></select>
     </div>
     <script type="text/javascript">
         (function (angular) {
@@ -54,7 +54,7 @@
                     { text: 'hello68', value: 68 }
                 ];
                 //
-                $scope.selectedItems = [];
+                $scope.selectedItems = [$scope.dataset[0]];
                 $scope.test = function () {
                     console.log($scope.selectedItems);
                 };
