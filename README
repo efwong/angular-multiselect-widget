@@ -1,8 +1,12 @@
-Angular MultiSelect Widget is an angular plugin for the jQuery UI MultiSelect Widget by Eric Hynds.
+AngularJS MultiSelect Widget is an angular plugin for the jQuery UI MultiSelect Widget by Eric Hynds.
+jquery.multiselect is a creation of Eric Hynds.
+This project is a simple port of his project to AngularJS
 Checkout the project at https://github.com/ehynds/jquery-ui-multiselect-widget
 
 
 Current Status:
 version amsw1
-Implement basic check functionality
-Implemented options
+Implemented basic select functionality
+Implemented options (except classes and position)
+Implemented most methods
+	except: checkAll, uncheckAll, isOpen, getChecked, getButton, widget, option

@@ -1,0 +1,30 @@
+{
+  "name": "angular-multiselect-widget",
+  "version": "1.0.0",
+  "description": "angularJS directive for jQuery UI MultiSelect Widget",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/efwong/angular-multiselect-widget.git"
+  },
+  "keywords": [
+    "angularJS",
+    "multiselect"
+  ],
+  "author": "efwong",
+  "license": "ISC",
+  "bugs": {},
+  "homepage": "https://github.com/efwong/angular-multiselect-widget",
+  "devDependencies": {
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.5"
+  }
+}

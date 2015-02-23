@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>jQuery MultiSelect Widget Demo</title>
-    <link rel="stylesheet" type="text/css" href="../jquery.multiselect.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jquery.multiselect.css" />
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
     <style>
         body { font:12px Helvetica, arial, sans-serif }
@@ -17,45 +17,39 @@
     <script type="text/javascript" src="../src/jquery.multiselect.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
 
-    <script type="text/javascript" src="angular-multiselect.js"></script>
+    <script type="text/javascript" src="../src/angular-multiselect.js"></script>
 </head>
 <body ng-app="myApp">
 
     <h3>Basic</h3>
     <div ng-controller="myController">
-        <!--<select jquery-ui-multiselect multiple="multiple">
-            <option value="1">hello1</option>
-            <option value="2">hello 2</option>
-            <option value="3">hello 3</option>
-            <option value="4">hello 4</option>
-            <option value="5">hello 5</option>
-            <option value="6">hello 6</option>
-            <option value="7">hello 7</option>
-            <option value="8">hello 8</option>
-            <option value="9">hello 9</option>
-            <option value="10">hello 10</option>
-            <option value="11">hello 11</option>
-            <option value="12">hello 12</option>
-        </select>-->
-        <button ng-click="testSelected()">Check Selected Items</button>
         <select 
 			multiselect 
-			multiple 
+			multiple
+			name="{{config.name}}"
 			ng-model="selectedItems" 
 			ng-options="item.text for item in dataset track by item.value" 
 			id="selectTest"
 			ms-height="200"
 			ms-min-width="400"
-			ms-check-all-text="HelloCheckAll"
-			ms-uncheck-all-text="DontCheckAll"
 			ms-none-selected-text="EMPTY"
 			ms-selected-text="# of # selected ha"
 			ms-selected-list="2"
 			ms-show="options.show"
 			ms-hide="options.hide"
 			ms-auto-open="true"
+			ms-open="events.open"
+			ms-before-open="events.beforeopen"
+			ms-before-close="events.beforeclose"
+			ms-close="events.close"
+			ms-check-all="events.checkall"
+			ms-uncheck-all="events.uncheckall"
+			ms-click="events.click"
 			>
 		</select>
+        <button ng-click="testSelected()">Check Selected Items</button>
+        <button ng-click="open()">open</button>
+        <button ng-click="close()">close</button>
     </div>
     <script type="text/javascript">
         (function (angular) {
@@ -71,16 +65,58 @@
                     { text: 'hello68', value: 68 }
                 ];
                 
+				$scope.config = {
+					name: "myMultiSelect"
+				};
 				
                 $scope.selectedItems = [$scope.dataset[0]];
+				
+				
+				$scope.options = {
+					// options
+					show: ['bounce', 200],
+					hide: ['explode', 1000],
+					
+				};
+				
+				// events
+				$scope.events = {
+					beforeopen: function(event, ui){
+						console.log('before open');
+					},
+					open: function(event, ui){
+						console.log('after open');
+					},
+					beforeclose: function(event, ui){
+						console.log('before close');
+					},
+					close: function(event, ui){
+						console.log('closing');
+					},
+					checkall: function(event, ui){
+						console.log('Check All fired');
+					},
+					uncheckall: function(event, ui){
+						console.log('UnCheck All fired');
+					},
+					click: function(event, ui){
+						console.log('A click has fired');
+					}
+				}
+				
+				// Events
+				
                 $scope.testSelected = function () {
                     console.log($scope.selectedItems);
                 };
-				
-				$scope.options = {
-					show: ['bounce', 200],
-					hide: ['explode', 1000]
+				// Fire multiselect methods
+				$scope.open = function(){
+					$scope.$broadcast($scope.config.name, { method: 'open'});
 				};
+				$scope.close = function(){
+					$scope.$broadcast($scope.config.name, { method: 'close'});
+				};
+				
             }]);
         })(angular);
     </script>
